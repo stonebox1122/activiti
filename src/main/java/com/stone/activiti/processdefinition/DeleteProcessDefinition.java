@@ -27,6 +27,6 @@ public class DeleteProcessDefinition {
         // 3. 执行删除流程定义，参数为流程部署Id
         // 如果repositoryService.deleteDeployment("1", true)设置为true，则级联删除，即使该流程有流程实例启动也可以删除
         // 此时先删除没有完成的流程节点，最后就可以删除流程定义信息
-        repositoryService.deleteDeployment("20001");
+        repositoryService.deleteDeployment("35001");
     }
 }
