@@ -6,13 +6,13 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 
 /**
- * ActivitiCompeleteTask: 完成当前用户的任务
+ * ReturnGroupTask: 归还组任务，实际上就是讲任务执行人设置为null
  *
  * @author Stone
  * @version V1.0
  * @date 2020/3/27
  **/
-public class ActivitiCompeleteTask {
+public class ReturnGroupTask {
 
     public static void main(String[] args) {
         // 1. 创建ProcessEngine对象
@@ -21,16 +21,16 @@ public class ActivitiCompeleteTask {
         // 2. 得到TaskService对象
         TaskService taskService = processEngine.getTaskService();
 
-        // 3. 根据流程定义的key和负责人assignee来实现当前用户的任务列表查询
+        // 3. 校验wangwu是否是该任务的负责人，如果是负责人才可以归还组任务
         Task task = taskService.createTaskQuery()
                 .processDefinitionKey("holiday4")
-                .taskAssignee("zhanliu")
+                .taskAssignee("lishi")
                 .singleResult();
 
-        // 4. 处理任务
+        // 4. 拾取组任务
         if (task != null) {
-            taskService.complete(task.getId());
-            System.out.println(task.getAssignee() + "：任务执行完毕");
+            taskService.setAssignee(task.getId(), null);
         }
+
     }
 }
